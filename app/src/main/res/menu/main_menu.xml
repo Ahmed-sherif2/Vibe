@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/cartFragment"
+        android:title="Cart"
+        app:actionLayout="@layout/menu_cart_badge"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/createAccountFragment"
+        android:title="Create Account"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/addressFragment"
+        android:title="Add Address"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="Settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/pointsFragment"
+        android:title="Points"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/helpFragment"
+        android:title="Help"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/accountFragment"
+        android:title="Account"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/signOut"
+        android:title="Sign out"
+        app:showAsAction="never" />
+</menu>
