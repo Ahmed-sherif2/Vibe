@@ -21,4 +21,8 @@
     <color name="fashion_primary">#2D3436</color>
     <color name="fashion_accent">#FAB1A0</color>
     <color name="fashion_highlight">#00CEC9</color>
+
+    <!-- Vibe Brand Colors -->
+    <color name="vibe_yellow">#FFD700</color>
+    <color name="vibe_yellow_bright">#FFEA00</color>
 </resources>
