@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="#3D4446"
+    app:cardElevation="4dp"
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -13,19 +14,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/productImage"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:background="#F0F0F0"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:layout_height="140dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/white"
+            android:layout_margin="4dp">
+
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/productName"
@@ -34,7 +44,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
-                android:textColor="@color/fashion_primary"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +57,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -57,16 +67,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAppearance="?attr/textAppearanceTitleLarge"
-                    android:textColor="@color/fashion_highlight"
+                    android:textColor="@color/vibe_yellow"
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/addToCartButton"
-                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="0dp"
+                    app:backgroundTint="@color/vibe_yellow"
                     app:icon="@drawable/ic_cart"
+                    app:iconTint="@color/fashion_primary"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconSize="20dp" />

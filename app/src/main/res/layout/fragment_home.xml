@@ -4,74 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/fashion_primary"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/fashion_primary">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="VIBE"
-                android:textAppearance="?attr/textAppearanceHeadline5"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:textColor="@color/fashion_primary" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/cartButton"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_cart"
-                    app:tint="@color/fashion_primary"
-                    android:contentDescription="Cart" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/profileImageCard"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginHorizontal="8dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/fashion_primary">
-
-                    <ImageView
-                        android:id="@+id/profileImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@android:drawable/ic_menu_camera"
-                        android:padding="8dp"
-                        app:tint="@android:color/darker_gray" />
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-        </com.google.android.material.appbar.MaterialToolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <!-- Background Decorative Elements -->
+    <View
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:background="@drawable/bg_circle_gradient"
+        android:alpha="0.1"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="-200dp"
+        android:layout_marginEnd="-200dp" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,13 +28,54 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Branding Header (Now inside ScrollView so it scrolls away) -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:id="@+id/brandLogoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIBE"
+                    android:fontFamily="sans-serif-black"
+                    android:letterSpacing="0.2"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/vibe_yellow" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profileImageCard"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/vibe_yellow"
+                    app:cardBackgroundColor="#3D4446">
+
+                    <ImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@android:drawable/ic_menu_camera"
+                        android:padding="10dp"
+                        app:tint="@android:color/darker_gray" />
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Discover Style"
                 android:textAppearance="?attr/textAppearanceHeadline4"
                 android:textStyle="bold"
-                android:textColor="@color/fashion_primary"
+                android:textColor="@color/white"
                 android:layout_marginBottom="4dp"/>
 
             <TextView
@@ -102,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="#3D4446"
                 app:strokeWidth="0dp">
 
                 <LinearLayout
@@ -115,7 +105,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@android:drawable/ic_menu_search"
-                        app:tint="@color/fashion_primary" />
+                        app:tint="@color/vibe_yellow" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -129,13 +119,15 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/locationPickerButton"
-                style="@style/Widget.Material3.Button.TonalButton"
+                style="@style/Widget.MyApplication.Button"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="32dp"
-                android:text="Select Delivery Location"
+                android:text="Set Delivery Location"
+                android:textColor="@color/fashion_primary"
+                app:backgroundTint="@color/vibe_yellow"
                 app:icon="@android:drawable/ic_dialog_map"
-                app:cornerRadius="16dp"/>
+                app:iconTint="@color/fashion_primary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -143,7 +135,7 @@
                 android:text="Shop by Brand"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:textStyle="bold"
-                android:textColor="@color/fashion_primary"
+                android:textColor="@color/vibe_yellow"
                 android:layout_marginBottom="16dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -161,7 +153,7 @@
                 android:text="Featured Products"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:textStyle="bold"
-                android:textColor="@color/fashion_primary"
+                android:textColor="@color/vibe_yellow"
                 android:layout_marginBottom="16dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -187,13 +179,13 @@
                     android:text="Recent Orders"
                     android:textAppearance="?attr/textAppearanceTitleLarge"
                     android:textStyle="bold"
-                    android:textColor="@color/fashion_primary" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See All"
-                    android:textColor="@color/fashion_accent"
+                    android:textColor="@color/vibe_yellow"
                     android:textStyle="bold" />
             </LinearLayout>
 

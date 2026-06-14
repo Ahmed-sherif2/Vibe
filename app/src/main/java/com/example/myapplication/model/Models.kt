@@ -12,6 +12,10 @@ data class User(
     var password: String? = null,
     var profileImageUrl: String? = null,
     var profileImageBase64: String? = null,
+    var points: Long = 0,
+    var address: String? = null,
+    var latitude: Double? = null,
+    var longitude: Double? = null,
     @get:Exclude @set:Exclude var profileImage: Bitmap? = null
 ) : Parcelable
 

@@ -54,7 +54,8 @@ class MainViewModel : ViewModel() {
     }
 
     private fun fetchUserData(email: String) {
-        db.collection("users").document(email).get()
+        val cleanEmail = email.lowercase().trim()
+        db.collection("users").document(cleanEmail).get()
             .addOnSuccessListener { document ->
                 val user = document.toObject(User::class.java)
                 user?.profileImageBase64?.let { base64 ->
@@ -68,12 +69,13 @@ class MainViewModel : ViewModel() {
     }
 
     private fun fetchUserOrders(email: String) {
-        Log.d("MainViewModel", "Starting fetch for user: $email")
+        val cleanEmail = email.lowercase().trim()
+        Log.d("MainViewModel", "Starting fetch for user: $cleanEmail")
         db.collection("orders")
-            .whereEqualTo("userEmail", email)
+            .whereEqualTo("userEmail", cleanEmail)
             .get()
             .addOnSuccessListener { documents ->
-                Log.d("MainViewModel", "Success! Found ${documents.size()} total orders in Firestore for $email")
+                Log.d("MainViewModel", "Success! Found ${documents.size()} total orders in Firestore for $cleanEmail")
                 val ordersList = mutableListOf<Order>()
                 for (document in documents) {
                     try {
@@ -88,17 +90,17 @@ class MainViewModel : ViewModel() {
                 _allOrders.value = ordersList
             }
             .addOnFailureListener { e ->
-                Log.e("MainViewModel", "Firestore error fetching orders for $email", e)
+                Log.e("MainViewModel", "Firestore error fetching orders for $cleanEmail", e)
             }
     }
 
     fun login(email: String, password: String, onResult: (Boolean) -> Unit) {
-        val loginEmail = if (email == "1") "1@example.com" else email
-        val loginPassword = if (password == "1") "password123" else password
+        val loginEmail = if (email == "1") "1@example.com" else email.lowercase().trim()
 
-        auth.signInWithEmailAndPassword(loginEmail, loginPassword)
+        auth.signInWithEmailAndPassword(loginEmail, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    _currentUser.value = User(email = loginEmail, name = loginEmail.substringBefore("@"))
                     fetchUserData(loginEmail)
                     fetchUserOrders(loginEmail)
                     onResult(true)
@@ -108,11 +110,27 @@ class MainViewModel : ViewModel() {
             }
     }
 
-    fun createAccount(email: String, password: String, profileImage: Bitmap?, onResult: (Boolean) -> Unit) {
-        auth.createUserWithEmailAndPassword(email, password)
+    fun createAccount(
+        email: String, 
+        password: String, 
+        profileImage: Bitmap?, 
+        lat: Double?, 
+        lon: Double?, 
+        address: String?,
+        onResult: (Boolean) -> Unit
+    ) {
+        val regEmail = email.lowercase().trim()
+        auth.createUserWithEmailAndPassword(regEmail, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val user = User(email, email.substringBefore("@"), password)
+                    val user = User(
+                        email = regEmail, 
+                        name = regEmail.substringBefore("@"), 
+                        password = password,
+                        latitude = lat,
+                        longitude = lon,
+                        address = address
+                    )
                     if (profileImage != null) {
                         user.profileImageBase64 = encodeToBase64(profileImage)
                         user.profileImage = profileImage
@@ -128,7 +146,8 @@ class MainViewModel : ViewModel() {
     }
 
     private fun saveUserToFirestore(user: User) {
-        db.collection("users").document(user.email).set(user)
+        val cleanEmail = user.email.lowercase().trim()
+        db.collection("users").document(cleanEmail).set(user)
             .addOnFailureListener { e -> Log.e("MainViewModel", "Error saving user", e) }
     }
 
@@ -186,31 +205,54 @@ class MainViewModel : ViewModel() {
     fun clearCart() { _cartItems.value = mutableListOf() }
 
     fun placeOrder() {
-        val userEmail = _currentUser.value?.email ?: return
+        val user = _currentUser.value ?: return
+        val userEmail = user.email.lowercase().trim()
         val items = _cartItems.value?.toList() ?: emptyList()
         if (items.isEmpty()) return
 
+        val total = getTotalPrice()
         val orderId = "ORD-${System.currentTimeMillis().toString().takeLast(6)}"
         val newOrder = Order(
             id = orderId,
             userEmail = userEmail,
             items = items,
-            totalPrice = getTotalPrice(),
+            totalPrice = total,
             status = "Processing",
             date = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
         )
+
+        // Calculate points (5 points per $1 spent)
+        val earnedPoints = (total * 5).toLong()
 
         db.collection("orders").document(orderId).set(newOrder)
             .addOnSuccessListener {
                 val currentOrders = _allOrders.value?.toMutableList() ?: mutableListOf()
                 currentOrders.add(0, newOrder)
                 _allOrders.value = currentOrders
-                Log.d("MainViewModel", "Order saved successfully: $orderId")
+                
+                // Update user points
+                user.points += earnedPoints
+                saveUserToFirestore(user)
+                _currentUser.value = user
+                
+                Log.d("MainViewModel", "Order saved and points updated: $orderId, Points earned: $earnedPoints")
             }
             .addOnFailureListener { e ->
                 Log.e("MainViewModel", "Error placing order", e)
             }
 
         clearCart()
+    }
+
+    fun redeemPoints(pointsToRedeem: Int, onResult: (Boolean) -> Unit) {
+        val user = _currentUser.value ?: return
+        if (user.points >= pointsToRedeem) {
+            user.points -= pointsToRedeem.toLong()
+            saveUserToFirestore(user)
+            _currentUser.value = user
+            onResult(true)
+        } else {
+            onResult(false)
+        }
     }
 }

@@ -68,10 +68,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
 
-        binding.cartButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_cartFragment)
-        }
-
         binding.locationPickerButton.setOnClickListener {
             val gmmIntentUri = Uri.parse("geo:0,0?q=clothing+stores")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)

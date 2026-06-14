@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/fashion_primary</item>
-        <item name="colorSecondary">@color/fashion_accent</item>
+        <item name="colorSecondary">@color/vibe_yellow</item>
+        <item name="colorOnSecondary">@color/fashion_primary</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="android:statusBarColor">@color/fashion_primary</item>
     </style>
@@ -11,25 +12,26 @@
 
     <!-- Interactive Card Style -->
     <style name="Widget.MyApplication.Card" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardCornerRadius">24dp</item>
-        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">28dp</item>
+        <item name="cardElevation">8dp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
 
-    <!-- Fun Button Style -->
+    <!-- Brand Button Style -->
     <style name="Widget.MyApplication.Button" parent="Widget.Material3.Button">
-        <item name="cornerRadius">16dp</item>
+        <item name="cornerRadius">20dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="android:textAllCaps">false</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.1</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.MaterialComponents.Card.TopRounded" parent="">
-        <item name="cornerSizeTopLeft">24dp</item>
-        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeTopLeft">32dp</item>
+        <item name="cornerSizeTopRight">32dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>

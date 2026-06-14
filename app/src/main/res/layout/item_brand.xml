@@ -4,15 +4,17 @@
     style="@style/Widget.MyApplication.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    app:cardBackgroundColor="@color/white"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="#3D4446"
+    app:cardElevation="4dp"
     app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp"
+        android:padding="16dp"
         android:gravity="center_vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -20,7 +22,7 @@
             android:layout_height="56dp"
             app:cardCornerRadius="28dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#F5F6FA">
+            app:cardBackgroundColor="@color/white">
 
             <ImageView
                 android:id="@+id/brandLogo"
@@ -38,14 +40,14 @@
             android:layout_weight="1"
             android:layout_marginStart="20dp"
             android:textAppearance="?attr/textAppearanceTitleLarge"
-            android:textColor="@color/fashion_primary"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@android:drawable/ic_media_play"
-            app:tint="@color/fashion_accent" />
+            app:tint="@color/vibe_yellow" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
